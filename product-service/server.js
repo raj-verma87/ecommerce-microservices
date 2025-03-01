@@ -1,15 +1,16 @@
 const express = require("express");
 const Product = require("./productModel");
+require("./database");
 
 const app = express();
 app.use(express.json());
 
-app.post("/products", async (req, res) => {
+app.post("/create", async (req, res) => {
   const product = await Product.create(req.body);
   res.json(product);
 });
 
-app.get("/products", async (req, res) => {
+app.get("/", async (req, res) => {
   const products = await Product.findAll();
   res.json(products);
 });

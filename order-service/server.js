@@ -1,15 +1,16 @@
 const express = require("express");
 const Order = require("./orderModel");
+require("./database");
 
 const app = express();
 app.use(express.json());
 
-app.post("/orders", async (req, res) => {
+app.post("/create", async (req, res) => {
   const order = await Order.create(req.body);
   res.json(order);
 });
 
-app.get("/orders", async (req, res) => {
+app.get("/", async (req, res) => {
   const orders = await Order.findAll();
   res.json(orders);
 });

@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const sequelize = require("./database"); // ✅ Import the database connection
+require("./database");
 const User = require("./userModel"); // Import User model
 
 const app = express();
@@ -8,9 +8,6 @@ const app = express();
 // ✅ Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Check database connection before starting the server
-sequelize.authenticate();
 
 // ✅ User Registration Route
 app.post("/register", async (req, res) => {
@@ -33,7 +30,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
+app.get("/", async (req, res) => {
   const users = await User.findAll();
   res.json(users);
 });
